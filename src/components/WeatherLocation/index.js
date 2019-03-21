@@ -3,12 +3,7 @@ import Location from './Location';
 import WeatherData from './WeatherData';
 import './styles.css';
 import {
-  CLOUD,
-  CLOUDY,
   SUN,
-  RAIN,
-  SNOW,
-  WINDY,
 } from './../../constants/weather';
 
 
@@ -19,16 +14,9 @@ const api_weather = `${url_base_weather}?q=${location}&APPID=${api_key}`;
 
 const data = {
   temperature: 5,
-  weatherState: SNOW,
+  weatherState: SUN,
   humidity: 10,
   wind: '10 m/s',
-}
-
-const data2 = {
-  temperature: 35,
-  weatherState: SUN,
-  humidity: 90,
-  wind: '5 m/s',
 }
 
 class WeatherLocation extends Component {
@@ -41,6 +29,25 @@ class WeatherLocation extends Component {
     };
   }
 
+  getWeatherState = (weather_data) => {
+    return SUN;
+  }
+
+  getData = (weather_data) => {
+    const { humidity, temp } = weather_data.main;
+    const { speed } = weather_data.wind;
+    const weatherState = this.getWeatherState(weather_data);
+
+    const data = {
+      humidity,
+      temperature: temp,
+      weatherState,
+      wind: `${speed} m/s`,
+    }
+
+    return data;
+  }
+
   handleUpdateClick =() => {
     //https://developer.mozilla.org/es/docs/Web/API/Fetch_API
     //https://developer.mozilla.org/es/docs/Web/API/Response
@@ -50,18 +57,13 @@ class WeatherLocation extends Component {
       // debugger;
       return resolve.json() // esto es una nueva promise
     }).then( data => {
+      const newWeather = this.getData(data);
       console.log(data);
       debugger;
+      this.setState({
+        data: newWeather
+      });
     })
-
-
-
-    console.log("Actualizado");
-
-    this.setState({
-      city: 'Melbourne',
-      data: data2
-    });
   }
 
   render () {
