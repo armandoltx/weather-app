@@ -42,7 +42,20 @@ class WeatherLocation extends Component {
   }
 
   handleUpdateClick =() => {
-    fetch(api_weather);
+    //https://developer.mozilla.org/es/docs/Web/API/Fetch_API
+    //https://developer.mozilla.org/es/docs/Web/API/Response
+    //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+    fetch(api_weather).then( resolve => {
+      // console.log(resolve);
+      // debugger;
+      return resolve.json() // esto es una nueva promise
+    }).then( data => {
+      console.log(data);
+      debugger;
+    })
+
+
+
     console.log("Actualizado");
 
     this.setState({
