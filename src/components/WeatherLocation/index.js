@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import convert from 'convert-units';
+import transformWeather from './../../services/transformWeather';
+import { api_weather } from './../../constants/api_url';
+
 import Location from './Location';
 import WeatherData from './WeatherData';
 import './styles.css';
@@ -7,11 +9,6 @@ import {
   SUN,
 } from './../../constants/weather';
 
-
-const location = "Sydney,au";
-const api_key = "4bce8856b98b59eeff0abf03755be294";
-const url_base_weather = "http://api.openweathermap.org/data/2.5/weather";
-const api_weather = `${url_base_weather}?q=${location}&APPID=${api_key}`;
 
 const data = {
   temperature: 5,
@@ -30,29 +27,6 @@ class WeatherLocation extends Component {
     };
   }
 
-  getTemp =(kelvin) => {
-    return Number(convert(kelvin).from("K").to("C").toFixed(2));
-  }
-
-  getWeatherState = (weather_data) => {
-    return SUN;
-  }
-
-  getData = (weather_data) => {
-    const { humidity, temp } = weather_data.main;
-    const { speed } = weather_data.wind;
-    const weatherState = this.getWeatherState(weather_data);
-    const temperature = this.getTemp(temp);
-
-    const data = {
-      humidity,
-      temperature,
-      weatherState,
-      wind: `${speed} m/s`,
-    }
-
-    return data;
-  }
 
   handleUpdateClick =() => {
     //https://developer.mozilla.org/es/docs/Web/API/Fetch_API
@@ -64,7 +38,7 @@ class WeatherLocation extends Component {
       return resolve.json() // esto es una nueva promise
     }).then( data => {
 
-      const newWeather = this.getData(data);
+      const newWeather = transformWeather(data);
       // console.log(data);
       // console.log("data.main humidity", data.main.humidity);
       // console.log("data.main humidity", data.main.temp);
