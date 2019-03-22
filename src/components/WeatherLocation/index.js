@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import convert from 'convert-units';
 import Location from './Location';
 import WeatherData from './WeatherData';
 import './styles.css';
@@ -29,6 +30,10 @@ class WeatherLocation extends Component {
     };
   }
 
+  getTemp =(kelvin) => {
+    return Number(convert(kelvin).from("K").to("C").toFixed(2));
+  }
+
   getWeatherState = (weather_data) => {
     return SUN;
   }
@@ -37,10 +42,11 @@ class WeatherLocation extends Component {
     const { humidity, temp } = weather_data.main;
     const { speed } = weather_data.wind;
     const weatherState = this.getWeatherState(weather_data);
+    const temperature = this.getTemp(temp);
 
     const data = {
       humidity,
-      temperature: temp,
+      temperature,
       weatherState,
       wind: `${speed} m/s`,
     }
@@ -57,9 +63,14 @@ class WeatherLocation extends Component {
       // debugger;
       return resolve.json() // esto es una nueva promise
     }).then( data => {
+
       const newWeather = this.getData(data);
-      console.log(data);
-      debugger;
+      // console.log(data);
+      // console.log("data.main humidity", data.main.humidity);
+      // console.log("data.main humidity", data.main.temp);
+      // console.log("data.main humidity", data.wind.spp);
+      // debugger;
+
       this.setState({
         data: newWeather
       });
