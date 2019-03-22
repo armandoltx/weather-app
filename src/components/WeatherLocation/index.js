@@ -30,19 +30,21 @@ class WeatherLocation extends Component {
 
   componentDidMount() {
     console.log("componentDidMount");
+    this.handleUpdateClick();
   }
 
   componentDidUpdate(prevPops, prevState) {
     console.log("componentDidUpdate");
   }
 
-  componentWillMount() {
-    console.log("UNSAFE componentWillMount");
-  }
+  // They are unsafe, van a desaparecer en nuevas versiones de React;
+  // componentWillMount() {
+  //   console.log("UNSAFE componentWillMount");
+  // }
 
-  componentWillUpdate(nextProps, nextState) {
-    console.log("UNSAFE componentWillUpdate");
-  }
+  // componentWillUpdate(nextProps, nextState) {
+  //   console.log("UNSAFE componentWillUpdate");
+  // }
 
 
   handleUpdateClick =() => {
@@ -54,7 +56,7 @@ class WeatherLocation extends Component {
       // debugger;
       return resolve.json() // esto es una nueva promise
     }).then( data => {
-
+      console.log("resultado del handleUpdateClick");
       const newWeather = transformWeather(data);
       // console.log(data);
       // console.log("data.main humidity", data.main.humidity);
