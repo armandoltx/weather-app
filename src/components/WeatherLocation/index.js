@@ -5,17 +5,6 @@ import { api_weather } from './../../constants/api_url';
 import Location from './Location';
 import WeatherData from './WeatherData';
 import './styles.css';
-import {
-  SUN,
-} from './../../constants/weather';
-
-
-const data = {
-  temperature: 5,
-  weatherState: SUN,
-  humidity: 10,
-  wind: '10 m/s',
-}
 
 class WeatherLocation extends Component {
 
@@ -23,7 +12,7 @@ class WeatherLocation extends Component {
     super();
     this.state = {
       city: 'Sydney',
-      data: data, // coming from the const declared before.
+      data: null,
     };
     console.log("constructor");
   }
@@ -76,8 +65,7 @@ class WeatherLocation extends Component {
     return (
       <div className="weatherLocationCont">
         <Location city={city}/>
-        <WeatherData data={data} />
-        <button onClick={this.handleUpdateClick}>Actualizar</button>
+        {data ? <WeatherData data={data} /> : "Cargando..."}
       </div>
     )
   }
