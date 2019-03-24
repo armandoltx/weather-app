@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import PropTypes from 'prop-types';
+import getUrlWeatherByCity from './../../services/getUrlWeatherByCity';
 import transformWeather from './../../services/transformWeather';
-import { api_weather } from './../../constants/api_url';
 
 import Location from './Location';
 import WeatherData from './WeatherData';
@@ -9,10 +10,11 @@ import './styles.css';
 
 class WeatherLocation extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { city } = props;
     this.state = {
-      city: 'Sydney',
+      city,  //city: city, es similar pero como es igual, solo se pone uno
       data: null,
     };
     console.log("constructor");
@@ -41,6 +43,7 @@ class WeatherLocation extends Component {
     //https://developer.mozilla.org/es/docs/Web/API/Fetch_API
     //https://developer.mozilla.org/es/docs/Web/API/Response
     //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+    const api_weather = getUrlWeatherByCity(this.state.city);
     fetch(api_weather).then( resolve => {
       // console.log(resolve);
       // debugger;
@@ -70,6 +73,10 @@ class WeatherLocation extends Component {
       </div>
     )
   }
+}
+
+WeatherLocation.propTypes = {
+  city: PropTypes.string.isRequired,
 }
 
 export default WeatherLocation;
