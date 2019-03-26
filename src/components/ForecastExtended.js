@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ForecastItem from './ForecastItem';
+import transformForecast from './../services/transformForecast';
 import './styles.css';
-import moment from 'moment';
 
 const days = [
   'Lunes',
@@ -23,15 +23,6 @@ const data = {
 const api_key = "4bce8856b98b59eeff0abf03755be294";
 const url = "http://api.openweathermap.org/data/2.5/forecast";
 
-const transformForecast = (data) => {
-  return (
-    data.list.filter(item =>(
-      moment.unix(item.dt).utc().hour() === 6 ||
-      moment.unix(item.dt).utc().hour() === 12 ||
-      moment.unix(item.dt).utc().hour() === 18
-    ))
-  );
-};
 class ForecastExtended extends Component {
 
   constructor() {
