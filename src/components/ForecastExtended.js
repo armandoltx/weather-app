@@ -11,17 +11,35 @@ const days = [
   'Viernes',
 ];
 
+
 const data = {
   temperature: 10,
   weatherState: 'normal',
   humidity: 10,
   wind: 'normal', 
 }
+
+const api_key = "4bce8856b98b59eeff0abf03755be294";
+const url = "http://api.openweathermap.org/data/2.5/forecast";
 class ForecastExtended extends Component {
 
   constructor() {
     super();
     this.state = { forecastData: null }
+  }
+
+  componentDidMount() {
+    // fetch or axios
+    const url_forecast = `${url}?q=${this.props.city}&appid=${api_key}`;
+    
+    fetch(url_forecast) // genera una promise
+    .then(
+      response => response.json() // pasamos la info q viene del server a json
+    ).then( // obtenemos el weather_data como objeto
+      weather_data => {
+        console.log(weather_data);
+      }
+    );
   }
 
   renderForecastItemDays() {
