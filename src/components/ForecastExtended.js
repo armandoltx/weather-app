@@ -12,13 +12,12 @@ const days = [
   'Viernes',
 ];
 
-
-const data = {
-  temperature: 10,
-  weatherState: 'normal',
-  humidity: 10,
-  wind: 'normal', 
-}
+// const data = {
+//   temperature: 10,
+//   weatherState: 'normal',
+//   humidity: 10,
+//   wind: 'normal', 
+// }
 
 const api_key = "4bce8856b98b59eeff0abf03755be294";
 const url = "http://api.openweathermap.org/data/2.5/forecast";
@@ -49,8 +48,13 @@ class ForecastExtended extends Component {
     );
   }
 
-  renderForecastItemDays() {
-    return days.map( day => (<ForecastItem weekDay={day} data={data}/>) );
+  renderForecastItemDays(forecastData) {
+    return forecastData.map( forecast => (
+      <ForecastItem
+        key={`${forecast.weekDay}${forecast.hour}`}
+        weekDay={forecast.weekDay}
+        hour={forecast.hour}
+        data={forecast.data}/>) );
   }
 
   renderProgress = ()  => {
@@ -63,10 +67,10 @@ class ForecastExtended extends Component {
 
     return(
       <div>
-        <h1 className='forecast-title'>Pronostico Extendido para {city} hour={10}</h1>
+        <h1 className='forecast-title'>Pronostico Extendido para {city}</h1>
         {
           forecastData ? 
-            this.renderForecastItemDays()
+            this.renderForecastItemDays(forecastData)
           :
             this.renderProgress()
         }
