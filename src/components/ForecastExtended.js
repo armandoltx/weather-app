@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './styles.css';
 import PropTypes from 'prop-types';
+import ForecastItem from './ForecastItem';
 
 class ForecastExtended extends Component {
   render(){
@@ -9,6 +10,7 @@ class ForecastExtended extends Component {
     return(
       <div>
         <h1 className='forecast-title'>Pronostico Extendido para {city}</h1>
+        <ForecastItem />
       </div>
     );
   }
