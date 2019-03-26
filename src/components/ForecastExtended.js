@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './styles.css';
 import PropTypes from 'prop-types';
 
 class ForecastExtended extends Component {
@@ -6,7 +7,9 @@ class ForecastExtended extends Component {
     const { city } = this.props; // === const city = this.props.city;
 
     return(
-      <div>Pronostico Extendido para {city}</div>
+      <div>
+        <h1 className='forecast-title'>Pronostico Extendido para {city}</h1>
+      </div>
     );
   }
 }
