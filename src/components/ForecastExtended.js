@@ -30,9 +30,25 @@ class ForecastExtended extends Component {
   }
 
   componentDidMount() {
+    this.updateCity(this.props.city);
+    // aqui no se recarga cuando se cambia, pq no vuelve a renderizarse, se usa
+    // componentWillReceiveProps
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // este componente se utiliza especialmente cuando queremos actualizar alguna propiedad o el componente, se ejecuta siempre que se cambien excepto la primera vez, por eso hay que ejecutarlod en el componentDidMount
+    if (nextProps !== this.props.city) {
+      this.setState({
+        forecastData: null, // lo pasamos a null y asi cada vez q se cambie de ciudad se ensenara que esta cargando.
+      })
+      this.updateCity(nextProps.city);
+    }
+  }
+  
+  updateCity = (city) => {
     // fetch or axios
-    const url_forecast = `${url}?q=${this.props.city}&appid=${api_key}`;
-    
+    const url_forecast = `${url}?q=${city}&appid=${api_key}`;
+  
     fetch(url_forecast) // genera una promise
     .then(
       response => response.json() // pasamos la info q viene del server a json
