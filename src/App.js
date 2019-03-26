@@ -59,9 +59,7 @@ class App extends Component {
             <Paper zDepth={4}>
               <div className="details">
                 {
-                  !city ?   // === city === null ?
-                    <h1>No se selecciono ciudad</h1>
-                  :
+                  city &&
                     <ForecastExtended city={city} />
                 }
               </div>
