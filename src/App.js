@@ -58,7 +58,12 @@ class App extends Component {
           <Col xs={12} md={6}>
             <Paper zDepth={4}>
               <div className="details">
-                <ForecastExtended city={city} />
+                {
+                  !city ?   // === city === null ?
+                    <h1>No se selecciono ciudad</h1>
+                  :
+                    <ForecastExtended city={city} />
+                }
               </div>
             </Paper>
           </Col>
