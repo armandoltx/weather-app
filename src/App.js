@@ -77,7 +77,7 @@ class App extends Component {
 
 // export default App;
 
-const mapDispatchToPropsActions = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
   setCity: value => dispatch(setCity(value)) //funcion con parametro value, invocamos a disptach y utiliza,ps el action creator que es setCity pasandole el parametro value
 });
 // creamos una funcion que invoque connect, q a su vez pide 2 funciones
@@ -88,6 +88,6 @@ const mapDispatchToPropsActions = (dispatch) => ({
 // ahora lo que exportamos es el componente pasado por la funcion
 // le cambiamos el nombre a componentConnected por AppcConnected
 // no tenemos acceso al store ahora, le pasamos a mapDispatchToPropsActions dispatch como parametro y retornara un objet que tendra las funciones que estemos ivocando para hacer la creacion de las secciones
-const AppConnected = connect(null, mapDispatchToPropsActions)(App);
+const AppConnected = connect(null, mapDispatchToProps)(App);
 
 export default AppConnected;
