@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'; // sirve para conectar las 2 lirberias, react y redux.
+import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
@@ -35,7 +36,7 @@ class App extends Component {
     });
     console.log(`handleSelectedLocation ${city}`);
 
-    this.props.setCity(city);
+    this.props.dispatchSetCity(city);
   }
 
   render() {
@@ -75,11 +76,17 @@ class App extends Component {
   }
 }
 
+App.propTypes = {
+  dispatchSetCity: PropTypes.func.isRequired,
+}
+
 // export default App;
 
-const mapDispatchToProps = (dispatch) => ({
-  setCity: value => dispatch(setCity(value)) //funcion con parametro value, invocamos a disptach y utiliza,ps el action creator que es setCity pasandole el parametro value
-});
+const mapDispatchToProps = (dispatch) => (
+  {
+    dispatchSetCity: value => dispatch(setCity(value)) //funcion con parametro value, invocamos a disptach y utilizamos el action creator que es setCity pasandole el parametro value
+  }
+);
 // creamos una funcion que invoque connect, q a su vez pide 2 funciones
 // la 1 la dejamos nula y la 2 va a ser una funcion que nos permita trabajar con las acciones
 // llamada mapDispatchToProps
@@ -88,6 +95,8 @@ const mapDispatchToProps = (dispatch) => ({
 // ahora lo que exportamos es el componente pasado por la funcion
 // le cambiamos el nombre a componentConnected por AppcConnected
 // no tenemos acceso al store ahora, le pasamos a mapDispatchToPropsActions dispatch como parametro y retornara un objet que tendra las funciones que estemos ivocando para hacer la creacion de las secciones
-const AppConnected = connect(null, mapDispatchToProps)(App);
 
-export default AppConnected;
+// const AppConnected = connect(null, mapDispatchToProps)(App);
+
+// export default AppConnected;
+export default connect(null, mapDispatchToProps)(App);
