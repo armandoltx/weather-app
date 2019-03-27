@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { createStore } from 'redux';
 import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
@@ -17,6 +18,8 @@ const cities = [
   'Lima, pe',
 ];
 
+const store = createStore(() => { }, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()); // window.__REDUX_DEVTOLLS_EXTENSION__ .... to connect the app woith the redux extension for chrome
+
 class App extends Component {
 
   constructor() {
@@ -33,6 +36,8 @@ class App extends Component {
     });
     console.log(`handleSelectedLocation ${city}`);
 
+    const action = {type: `setCity`, value: city};
+    store.dispatch(action);
   }
 
   render() {
