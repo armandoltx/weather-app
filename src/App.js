@@ -38,7 +38,7 @@ class App extends Component {
     });
     console.log(`handleSelectedLocation ${city}`);
 
-    store.dispatch(setCity(city));
+    store.dispatch(setCity(city)); // en vez de hacer el dispatch de una accion directamente se llama a un actiom creator, que es una funcion.
   }
 
   render() {
