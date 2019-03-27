@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'; // sirve para conectar las 2 lirberias, react y redux.
 import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
@@ -7,7 +8,6 @@ import { Grid, Col, Row } from 'react-flexbox-grid';
 import LocationList from './components/LocationList';
 import ForecastExtended from './components/ForecastExtended';
 import { setCity } from './actions';
-import { store } from './store';
 
 import './App.css';
 
@@ -35,7 +35,7 @@ class App extends Component {
     });
     console.log(`handleSelectedLocation ${city}`);
 
-    store.dispatch(setCity(city)); // en vez de hacer el dispatch de una accion directamente se llama a un actiom creator, que es una funcion.
+    this.props.setCity(city);
   }
 
   render() {
@@ -75,4 +75,19 @@ class App extends Component {
   }
 }
 
-export default App;
+// export default App;
+
+const mapDispatchToPropsActions = (dispatch) => ({
+  setCity: value => dispatch(setCity(value)) //funcion con parametro value, invocamos a disptach y utiliza,ps el action creator que es setCity pasandole el parametro value
+});
+// creamos una funcion que invoque connect, q a su vez pide 2 funciones
+// la 1 la dejamos nula y la 2 va a ser una funcion que nos permita trabajar con las acciones
+// llamada mapDispatchToProps
+// componentConnected es una funcion q retorna otra funcion que espera que le pasemos el componente como parametro
+//const componentConnected = connect(null, mapDispatchToPropsActions)(App);
+// ahora lo que exportamos es el componente pasado por la funcion
+// le cambiamos el nombre a componentConnected por AppcConnected
+// no tenemos acceso al store ahora, le pasamos a mapDispatchToPropsActions dispatch como parametro y retornara un objet que tendra las funciones que estemos ivocando para hacer la creacion de las secciones
+const AppConnected = connect(null, mapDispatchToPropsActions)(App);
+
+export default AppConnected;
