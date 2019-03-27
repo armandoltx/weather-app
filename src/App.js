@@ -20,6 +20,8 @@ const cities = [
 
 const store = createStore(() => { }, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()); // window.__REDUX_DEVTOLLS_EXTENSION__ .... to connect the app woith the redux extension for chrome
 
+const setCity = (value) => ({ type: `setCity`, value }); // esto es un action Creator
+
 class App extends Component {
 
   constructor() {
@@ -36,8 +38,7 @@ class App extends Component {
     });
     console.log(`handleSelectedLocation ${city}`);
 
-    const action = {type: `setCity`, value: city};
-    store.dispatch(action);
+    store.dispatch(setCity(city));
   }
 
   render() {
