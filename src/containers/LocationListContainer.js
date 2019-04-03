@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'; // sirve para conectar las 2 lirberias, react y redux.
+import { connect } from 'react-redux'; // sirve para conectar las 2 lirberias, react y redux. para q sea un smart component
 import PropTypes from 'prop-types';
 import { setCity } from './../actions';
 import LocationList from './../components/LocationList';
