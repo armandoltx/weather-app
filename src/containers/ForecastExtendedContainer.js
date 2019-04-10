@@ -20,7 +20,7 @@ ForecastExtendedContainer.propTypes = {
   city: PropTypes.string.isRequired,
 }
 
-//const mapStateToProps =(state) => ({ city1: state.city });// esta funcion espera q retornemos un objeto q es la parte del state q nos interesa.  CON DESTRUCTURING:
+// a esta funcion se le pasa como parametro el state => const mapStateToProps =(state) => ({ city1: state.city });// esta funcion espera q retornemos un objeto q es la parte del state q nos interesa.  CON DESTRUCTURING:
 const mapStateToProps = ({ city }) => ({ city });
 
 export default connect(mapStateToProps, null) (ForecastExtendedContainer);
