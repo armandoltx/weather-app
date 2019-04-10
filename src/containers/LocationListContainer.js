@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'; // sirve para conectar las 2 lirberias, react y redux. para q sea un smart component
 import PropTypes from 'prop-types';
-import { setCity } from './../actions';
+import { setSelectedCity } from './../actions';
 import LocationList from './../components/LocationList';
 
 class LocationListContainer extends Component {
@@ -29,7 +29,7 @@ LocationListContainer.propTypes = {
 
 const mapDispatchToProps = (dispatch) => (
   {
-    dispatchSetCity: value => dispatch(setCity(value)) //funcion con parametro value, invocamos a disptach y utilizamos el action creator que es setCity pasandole el parametro value
+    dispatchSetCity: value => dispatch(setSelectedCity(value)) //funcion con parametro value, invocamos a disptach y utilizamos el action creator que es setCity pasandole el parametro value
   }
 );
 
